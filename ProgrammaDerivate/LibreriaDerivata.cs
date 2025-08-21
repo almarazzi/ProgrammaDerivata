@@ -4,6 +4,7 @@ using org.matheval;
 
 
 
+
 namespace ProgrammaDerivate
 {
 
@@ -41,11 +42,13 @@ namespace ProgrammaDerivate
                 var FattoreNum = 1.0;
                 if (Base is ExprParser.MoltiplicazioneEspressioneContext MoltiplicazioneC)
                 {
-                    FattoreNum = double.Parse(MoltiplicazioneC.expr(0).GetText());
+                    m_expression.SetFomular(MoltiplicazioneC.expr(0).GetText());
+                    FattoreNum = m_expression.Eval<double>();
 
                 } else if (Base is ExprParser.DivisioneEspressioneContext DivisioneC)
                 {
-                    FattoreNum = double.Parse(DivisioneC.expr(0).GetText());
+                    m_expression.SetFomular(DivisioneC.expr(0).GetText());
+                    FattoreNum = m_expression.Eval<double>();
                     Esponente = -Esponente;
                 }
            
@@ -68,7 +71,6 @@ namespace ProgrammaDerivate
             }
             if (Espressione is ExprParser.DivisioneEspressioneContext Divisione)
             {
-
                 return $"(({Derivata(Divisione.expr(0))})*{Divisione.expr(1).GetText()} - {Divisione.expr(0).GetText()}*({Derivata(Divisione.expr(1))}))/({Divisione.expr(1).GetText()})^2";
             }
             return "";
