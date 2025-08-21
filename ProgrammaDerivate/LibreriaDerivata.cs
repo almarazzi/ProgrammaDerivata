@@ -1,61 +1,79 @@
-﻿using org.matheval;
-using System.Text;
+﻿using Antlr4.Runtime.Misc;
+using org.matheval;
+
 
 
 
 namespace ProgrammaDerivate
 {
 
-    internal class Ascolto : ExprBaseListener
+    public class Ascolto : ExprBaseVisitor<string>
     {
-        private readonly StringBuilder sb = new StringBuilder();
-        private readonly Expression M_Expression = new Expression();
-        private double M_FattoreNumerico;
-        private double M_Potenza;
-        private string M_Costante = "";
-        private bool M_Divizione = false;
+        private readonly Expression m_expression = new Expression();
 
-
-        public override void EnterDivPer(ExprParser.DivPerContext context)
+        public override string VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context)
         {
+            var Espressione = context.expr();
+            return Derivata(Espressione);
 
-            M_Expression.SetFomular(context.numeri().GetText());
-            M_FattoreNumerico = M_Expression.Eval<double>();
-            if (context.GetChild(1).GetText() == "/")
+
+        }
+        private string Derivata([NotNull] ExprParser.ExprContext Espressione)
+        {
+            if (Espressione is ExprParser.CostanteEspressioneContext)
             {
-                M_Divizione = true;
+                return "1";
             }
-            
-        }
-
-        public override void EnterPotenza(ExprParser.PotenzaContext context)
-        {
-            if (M_Divizione)
+            if (Espressione is ExprParser.NumeroEspressioneContext)
             {
-                M_Expression.SetFomular(context.numeri().GetText() + "*-1");
+                return "0";
             }
-            else
+            if (Espressione is ExprParser.ParentesiEspressioneContext Parentesi)
             {
-                M_Expression.SetFomular(context.numeri().GetText());
+                return Derivata(Parentesi.expr());
             }
-            M_Potenza = M_Expression.Eval<double>();
-            M_Costante = context.ID().GetText();
-            Potenza();
+
+            if (Espressione is ExprParser.PotenzaEspressioneContext Potenza)
+            {
+                var Base = Potenza.expr(0);
+                m_expression.SetFomular(Potenza.expr(1).GetText());
+                var Esponente = m_expression.Eval<double>();
+                var FattoreNum = 1.0;
+                if (Base is ExprParser.MoltiplicazioneEspressioneContext MoltiplicazioneC)
+                {
+                    FattoreNum = double.Parse(MoltiplicazioneC.expr(0).GetText());
+
+                } else if (Base is ExprParser.DivisioneEspressioneContext DivisioneC)
+                {
+                    FattoreNum = double.Parse(DivisioneC.expr(0).GetText());
+                    Esponente = -Esponente;
+                }
+           
+                return $"{FattoreNum* Esponente}*x^{Esponente - 1.0}";
+            }
+            if (Espressione is ExprParser.SommaEspressioneContext Somma)
+            {
+
+                return $"{Derivata(Somma.expr(0))} + {Derivata(Somma.expr(1))}";
+            }
+            if (Espressione is ExprParser.SottrazioneEspressioneContext Sottrazione)
+            {
+
+                return $"{Derivata(Sottrazione.expr(0))} - {Derivata(Sottrazione.expr(1))}";
+            }
+            if (Espressione is ExprParser.MoltiplicazioneEspressioneContext Moltiplicazione)
+            {
+
+                return $"({Derivata(Moltiplicazione.expr(0))})*{Moltiplicazione.expr(1).GetText()} + {Moltiplicazione.expr(0).GetText()}*({Derivata(Moltiplicazione.expr(1))})";
+            }
+            if (Espressione is ExprParser.DivisioneEspressioneContext Divisione)
+            {
+
+                return $"(({Derivata(Divisione.expr(0))})*{Divisione.expr(1).GetText()} - {Divisione.expr(0).GetText()}*({Derivata(Divisione.expr(1))}))/({Divisione.expr(1).GetText()})^2";
+            }
+            return "";
         }
 
 
-
-        internal void Potenza()
-        {
-            var p = M_Potenza - 1.0;
-            var d = M_Potenza * M_FattoreNumerico;
-            sb.AppendLine($"y'={d}{M_Costante}^{p}");
-
-        }
-
-        public string Ritornostringa()
-        {
-            return sb.ToString();
-        }
     }
 }

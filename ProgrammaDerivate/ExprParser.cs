@@ -36,19 +36,21 @@ public partial class ExprParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, ID=8, NUMBER=9, 
-		WS=10;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		T__9=10, T__10=11, T__11=12, T__12=13, ID=14, NUMBER=15, WS=16;
 	public const int
-		RULE_expr = 0, RULE_operazione = 1, RULE_numeri = 2;
+		RULE_prog = 0, RULE_expr = 1, RULE_func = 2;
 	public static readonly string[] ruleNames = {
-		"expr", "operazione", "numeri"
+		"prog", "expr", "func"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'*'", "'/'", "'^'", "'+'", "'-'", "'('", "')'", "'x'"
+		null, "'+'", "'-'", "'*'", "'/'", "'^'", "'y='", "'('", "')'", "'sin'", 
+		"'cos'", "'tan'", "'log'", "'ln'", "'x'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, "ID", "NUMBER", "WS"
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, "ID", "NUMBER", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -82,6 +84,58 @@ public partial class ExprParser : Parser {
 		Interpreter = new ParserATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
 	}
 
+	public partial class ProgContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(ExprParser.Eof, 0); }
+		public ProgContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_prog; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterProg(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitProg(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitProg(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ProgContext prog() {
+		ProgContext _localctx = new ProgContext(Context, State);
+		EnterRule(_localctx, 0, RULE_prog);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 6;
+			expr(0);
+			State = 7;
+			Match(Eof);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
 	public partial class ExprContext : ParserRuleContext {
 		public ExprContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -94,340 +148,439 @@ public partial class ExprParser : Parser {
 			base.CopyFrom(context);
 		}
 	}
-	public partial class DivPerContext : ExprContext {
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext numeri() {
-			return GetRuleContext<NumeriContext>(0);
+	public partial class ParentesiEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public OperazioneContext operazione() {
-			return GetRuleContext<OperazioneContext>(0);
-		}
-		public DivPerContext(ExprContext context) { CopyFrom(context); }
+		public ParentesiEspressioneContext(ExprContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterDivPer(this);
+			if (typedListener != null) typedListener.EnterParentesiEspressione(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitDivPer(this);
+			if (typedListener != null) typedListener.ExitParentesiEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitParentesiEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class MoltiplicazioneEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public MoltiplicazioneEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterMoltiplicazioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitMoltiplicazioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMoltiplicazioneEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class CostanteEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(ExprParser.ID, 0); }
+		public CostanteEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterCostanteEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitCostanteEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitCostanteEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class DerivataEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public DerivataEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterDerivataEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitDerivataEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDerivataEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class DivisioneEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public DivisioneEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterDivisioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitDivisioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDivisioneEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class PotenzaEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public PotenzaEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterPotenzaEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitPotenzaEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPotenzaEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class NumeroNegContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(ExprParser.NUMBER, 0); }
+		public NumeroNegContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterNumeroNeg(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitNumeroNeg(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNumeroNeg(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class SommaEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public SommaEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterSommaEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitSommaEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSommaEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class SottrazioneEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public SottrazioneEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterSottrazioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitSottrazioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSottrazioneEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class FunzioneEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public FuncContext func() {
+			return GetRuleContext<FuncContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public FunzioneEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterFunzioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitFunzioneEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFunzioneEspressione(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class NumeroEspressioneContext : ExprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(ExprParser.NUMBER, 0); }
+		public NumeroEspressioneContext(ExprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterNumeroEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitNumeroEspressione(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNumeroEspressione(this);
+			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
 	public ExprContext expr() {
-		ExprContext _localctx = new ExprContext(Context, State);
-		EnterRule(_localctx, 0, RULE_expr);
-		int _la;
-		try {
-			_localctx = new DivPerContext(_localctx);
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 6;
-			numeri(0);
-			State = 7;
-			_la = TokenStream.LA(1);
-			if ( !(_la==T__0 || _la==T__1) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
-			State = 8;
-			operazione();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
+		return expr(0);
 	}
 
-	public partial class OperazioneContext : ParserRuleContext {
-		public OperazioneContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_operazione; } }
-	 
-		public OperazioneContext() { }
-		public virtual void CopyFrom(OperazioneContext context) {
-			base.CopyFrom(context);
-		}
-	}
-	public partial class PotenzaContext : OperazioneContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(ExprParser.ID, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext numeri() {
-			return GetRuleContext<NumeriContext>(0);
-		}
-		public PotenzaContext(OperazioneContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterPotenza(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitPotenza(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public OperazioneContext operazione() {
-		OperazioneContext _localctx = new OperazioneContext(Context, State);
-		EnterRule(_localctx, 2, RULE_operazione);
-		int _la;
-		try {
-			_localctx = new PotenzaContext(_localctx);
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 10;
-			Match(ID);
-			State = 13;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if (_la==T__2) {
-				{
-				State = 11;
-				Match(T__2);
-				State = 12;
-				numeri(0);
-				}
-			}
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class NumeriContext : ParserRuleContext {
-		public NumeriContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_numeri; } }
-	 
-		public NumeriContext() { }
-		public virtual void CopyFrom(NumeriContext context) {
-			base.CopyFrom(context);
-		}
-	}
-	public partial class NegativiNumeriContext : NumeriContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(ExprParser.NUMBER, 0); }
-		public NegativiNumeriContext(NumeriContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterNegativiNumeri(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitNegativiNumeri(this);
-		}
-	}
-	public partial class SommaMenointerniContext : NumeriContext {
-		public IToken op;
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext[] numeri() {
-			return GetRuleContexts<NumeriContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext numeri(int i) {
-			return GetRuleContext<NumeriContext>(i);
-		}
-		public SommaMenointerniContext(NumeriContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterSommaMenointerni(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitSommaMenointerni(this);
-		}
-	}
-	public partial class NumberContext : NumeriContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMBER() { return GetToken(ExprParser.NUMBER, 0); }
-		public NumberContext(NumeriContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterNumber(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitNumber(this);
-		}
-	}
-	public partial class ParentContext : NumeriContext {
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext numeri() {
-			return GetRuleContext<NumeriContext>(0);
-		}
-		public ParentContext(NumeriContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterParent(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitParent(this);
-		}
-	}
-	public partial class DivPerinterniContext : NumeriContext {
-		public IToken op;
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext[] numeri() {
-			return GetRuleContexts<NumeriContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public NumeriContext numeri(int i) {
-			return GetRuleContext<NumeriContext>(i);
-		}
-		public DivPerinterniContext(NumeriContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.EnterDivPerinterni(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IExprListener typedListener = listener as IExprListener;
-			if (typedListener != null) typedListener.ExitDivPerinterni(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public NumeriContext numeri() {
-		return numeri(0);
-	}
-
-	private NumeriContext numeri(int _p) {
+	private ExprContext expr(int _p) {
 		ParserRuleContext _parentctx = Context;
 		int _parentState = State;
-		NumeriContext _localctx = new NumeriContext(Context, _parentState);
-		NumeriContext _prevctx = _localctx;
-		int _startState = 4;
-		EnterRecursionRule(_localctx, 4, RULE_numeri, _p);
-		int _la;
+		ExprContext _localctx = new ExprContext(Context, _parentState);
+		ExprContext _prevctx = _localctx;
+		int _startState = 2;
+		EnterRecursionRule(_localctx, 2, RULE_expr, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 23;
+			State = 28;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
-			case T__4:
+			case T__5:
 				{
-				_localctx = new NegativiNumeriContext(_localctx);
+				_localctx = new DerivataEspressioneContext(_localctx);
 				Context = _localctx;
 				_prevctx = _localctx;
 
+				State = 10;
+				Match(T__5);
+				State = 11;
+				Match(T__6);
+				State = 12;
+				expr(0);
+				State = 13;
+				Match(T__7);
+				}
+				break;
+			case T__8:
+			case T__9:
+			case T__10:
+			case T__11:
+			case T__12:
+				{
+				_localctx = new FunzioneEspressioneContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 15;
+				func();
 				State = 16;
-				Match(T__4);
+				Match(T__6);
 				State = 17;
+				expr(0);
+				State = 18;
+				Match(T__7);
+				}
+				break;
+			case T__6:
+				{
+				_localctx = new ParentesiEspressioneContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 20;
+				Match(T__6);
+				State = 21;
+				expr(0);
+				State = 22;
+				Match(T__7);
+				}
+				break;
+			case T__1:
+				{
+				_localctx = new NumeroNegContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 24;
+				Match(T__1);
+				State = 25;
 				Match(NUMBER);
 				}
 				break;
 			case NUMBER:
 				{
-				_localctx = new NumberContext(_localctx);
+				_localctx = new NumeroEspressioneContext(_localctx);
 				Context = _localctx;
 				_prevctx = _localctx;
-				State = 18;
+				State = 26;
 				Match(NUMBER);
 				}
 				break;
-			case T__5:
+			case ID:
 				{
-				_localctx = new ParentContext(_localctx);
+				_localctx = new CostanteEspressioneContext(_localctx);
 				Context = _localctx;
 				_prevctx = _localctx;
-				State = 19;
-				Match(T__5);
-				State = 20;
-				numeri(0);
-				State = 21;
-				Match(T__6);
+				State = 27;
+				Match(ID);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 33;
+			State = 47;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
+			_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( ParseListeners!=null )
 						TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 31;
+					State = 45;
 					ErrorHandler.Sync(this);
-					switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+					switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 					case 1:
 						{
-						_localctx = new DivPerinterniContext(new NumeriContext(_parentctx, _parentState));
-						PushNewRecursionContext(_localctx, _startState, RULE_numeri);
-						State = 25;
-						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
-						State = 26;
-						((DivPerinterniContext)_localctx).op = TokenStream.LT(1);
-						_la = TokenStream.LA(1);
-						if ( !(_la==T__0 || _la==T__1) ) {
-							((DivPerinterniContext)_localctx).op = ErrorHandler.RecoverInline(this);
-						}
-						else {
-							ErrorHandler.ReportMatch(this);
-						    Consume();
-						}
-						State = 27;
-						numeri(6);
+						_localctx = new SommaEspressioneContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 30;
+						if (!(Precpred(Context, 11))) throw new FailedPredicateException(this, "Precpred(Context, 11)");
+						State = 31;
+						Match(T__0);
+						State = 32;
+						expr(12);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new SommaMenointerniContext(new NumeriContext(_parentctx, _parentState));
-						PushNewRecursionContext(_localctx, _startState, RULE_numeri);
-						State = 28;
-						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
-						State = 29;
-						((SommaMenointerniContext)_localctx).op = TokenStream.LT(1);
-						_la = TokenStream.LA(1);
-						if ( !(_la==T__3 || _la==T__4) ) {
-							((SommaMenointerniContext)_localctx).op = ErrorHandler.RecoverInline(this);
+						_localctx = new SottrazioneEspressioneContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 33;
+						if (!(Precpred(Context, 10))) throw new FailedPredicateException(this, "Precpred(Context, 10)");
+						State = 34;
+						Match(T__1);
+						State = 35;
+						expr(11);
 						}
-						else {
-							ErrorHandler.ReportMatch(this);
-						    Consume();
+						break;
+					case 3:
+						{
+						_localctx = new MoltiplicazioneEspressioneContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 36;
+						if (!(Precpred(Context, 9))) throw new FailedPredicateException(this, "Precpred(Context, 9)");
+						State = 37;
+						Match(T__2);
+						State = 38;
+						expr(10);
 						}
-						State = 30;
-						numeri(5);
+						break;
+					case 4:
+						{
+						_localctx = new DivisioneEspressioneContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 39;
+						if (!(Precpred(Context, 8))) throw new FailedPredicateException(this, "Precpred(Context, 8)");
+						State = 40;
+						Match(T__3);
+						State = 41;
+						expr(9);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new PotenzaEspressioneContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 42;
+						if (!(Precpred(Context, 7))) throw new FailedPredicateException(this, "Precpred(Context, 7)");
+						State = 43;
+						Match(T__4);
+						State = 44;
+						expr(8);
 						}
 						break;
 					}
 					} 
 				}
-				State = 35;
+				State = 49;
 				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
+				_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			}
 			}
 		}
@@ -442,32 +595,94 @@ public partial class ExprParser : Parser {
 		return _localctx;
 	}
 
+	public partial class FuncContext : ParserRuleContext {
+		public FuncContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_func; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.EnterFunc(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IExprListener typedListener = listener as IExprListener;
+			if (typedListener != null) typedListener.ExitFunc(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IExprVisitor<TResult> typedVisitor = visitor as IExprVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFunc(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public FuncContext func() {
+		FuncContext _localctx = new FuncContext(Context, State);
+		EnterRule(_localctx, 4, RULE_func);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 50;
+			_la = TokenStream.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 15872L) != 0)) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 2: return numeri_sempred((NumeriContext)_localctx, predIndex);
+		case 1: return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private bool numeri_sempred(NumeriContext _localctx, int predIndex) {
+	private bool expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return Precpred(Context, 5);
-		case 1: return Precpred(Context, 4);
+		case 0: return Precpred(Context, 11);
+		case 1: return Precpred(Context, 10);
+		case 2: return Precpred(Context, 9);
+		case 3: return Precpred(Context, 8);
+		case 4: return Precpred(Context, 7);
 		}
 		return true;
 	}
 
 	private static int[] _serializedATN = {
-		4,1,10,37,2,0,7,0,2,1,7,1,2,2,7,2,1,0,1,0,1,0,1,0,1,1,1,1,1,1,3,1,14,8,
-		1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,24,8,2,1,2,1,2,1,2,1,2,1,2,1,2,5,
-		2,32,8,2,10,2,12,2,35,9,2,1,2,0,1,4,3,0,2,4,0,2,1,0,1,2,1,0,4,5,38,0,6,
-		1,0,0,0,2,10,1,0,0,0,4,23,1,0,0,0,6,7,3,4,2,0,7,8,7,0,0,0,8,9,3,2,1,0,
-		9,1,1,0,0,0,10,13,5,8,0,0,11,12,5,3,0,0,12,14,3,4,2,0,13,11,1,0,0,0,13,
-		14,1,0,0,0,14,3,1,0,0,0,15,16,6,2,-1,0,16,17,5,5,0,0,17,24,5,9,0,0,18,
-		24,5,9,0,0,19,20,5,6,0,0,20,21,3,4,2,0,21,22,5,7,0,0,22,24,1,0,0,0,23,
-		15,1,0,0,0,23,18,1,0,0,0,23,19,1,0,0,0,24,33,1,0,0,0,25,26,10,5,0,0,26,
-		27,7,0,0,0,27,32,3,4,2,6,28,29,10,4,0,0,29,30,7,1,0,0,30,32,3,4,2,5,31,
-		25,1,0,0,0,31,28,1,0,0,0,32,35,1,0,0,0,33,31,1,0,0,0,33,34,1,0,0,0,34,
-		5,1,0,0,0,35,33,1,0,0,0,4,13,23,31,33
+		4,1,16,53,2,0,7,0,2,1,7,1,2,2,7,2,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,29,8,1,1,1,1,1,
+		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,46,8,1,10,1,12,
+		1,49,9,1,1,2,1,2,1,2,0,1,2,3,0,2,4,0,1,1,0,9,13,59,0,6,1,0,0,0,2,28,1,
+		0,0,0,4,50,1,0,0,0,6,7,3,2,1,0,7,8,5,0,0,1,8,1,1,0,0,0,9,10,6,1,-1,0,10,
+		11,5,6,0,0,11,12,5,7,0,0,12,13,3,2,1,0,13,14,5,8,0,0,14,29,1,0,0,0,15,
+		16,3,4,2,0,16,17,5,7,0,0,17,18,3,2,1,0,18,19,5,8,0,0,19,29,1,0,0,0,20,
+		21,5,7,0,0,21,22,3,2,1,0,22,23,5,8,0,0,23,29,1,0,0,0,24,25,5,2,0,0,25,
+		29,5,15,0,0,26,29,5,15,0,0,27,29,5,14,0,0,28,9,1,0,0,0,28,15,1,0,0,0,28,
+		20,1,0,0,0,28,24,1,0,0,0,28,26,1,0,0,0,28,27,1,0,0,0,29,47,1,0,0,0,30,
+		31,10,11,0,0,31,32,5,1,0,0,32,46,3,2,1,12,33,34,10,10,0,0,34,35,5,2,0,
+		0,35,46,3,2,1,11,36,37,10,9,0,0,37,38,5,3,0,0,38,46,3,2,1,10,39,40,10,
+		8,0,0,40,41,5,4,0,0,41,46,3,2,1,9,42,43,10,7,0,0,43,44,5,5,0,0,44,46,3,
+		2,1,8,45,30,1,0,0,0,45,33,1,0,0,0,45,36,1,0,0,0,45,39,1,0,0,0,45,42,1,
+		0,0,0,46,49,1,0,0,0,47,45,1,0,0,0,47,48,1,0,0,0,48,3,1,0,0,0,49,47,1,0,
+		0,0,50,51,7,0,0,0,51,5,1,0,0,0,3,28,45,47
 	};
 
 	public static readonly ATN _ATN =
