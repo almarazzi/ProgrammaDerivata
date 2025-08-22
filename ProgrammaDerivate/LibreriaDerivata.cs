@@ -99,7 +99,7 @@ namespace ProgrammaDerivate
                 }
             }
 
-            return "";
+            return "non è una derivata";
         }
 
 
