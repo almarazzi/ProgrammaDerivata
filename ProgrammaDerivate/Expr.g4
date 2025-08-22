@@ -8,6 +8,7 @@ expr
     | expr '*' expr        #MoltiplicazioneEspressione
     | expr '/' expr        #DivisioneEspressione
     | expr '^' expr        #PotenzaEspressione
+	| expr 'sqrt' expr     #RadiceEspressione
     | 'y=' '(' expr ')'    #DerivataEspressione
     | func '(' expr ')'    #FunzioneEspressione
     | '(' expr ')'         #ParentesiEspressione

@@ -13,6 +13,7 @@ namespace ProgrammaDerivate
         private readonly Expression m_expression = new Expression();
         private bool DivisioneB = false;
 
+
         public override string VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context)
         {
             var Espressione = context.expr();
@@ -22,6 +23,7 @@ namespace ProgrammaDerivate
         }
         private string Derivata([NotNull] ExprParser.ExprContext Espressione)
         {
+
             if (Espressione is ExprParser.CostanteEspressioneContext)
             {
                 return "1";
@@ -34,15 +36,26 @@ namespace ProgrammaDerivate
             {
                 return Derivata(Parentesi.expr());
             }
+            if (Espressione is ExprParser.RadiceEspressioneContext Radice)
+            {
+                m_expression.SetFomular(Radice.expr(0).GetText());
+                var Indice = m_expression.Eval<double>();
+                var f = Radice.expr(1).GetText().Replace("(","").Replace(")","").Split('^');
+                m_expression.SetFomular(f[1]);
+                var Esponente = m_expression.Eval<double>();
+                return $"{Esponente / Indice}*x^{(Esponente / Indice) - 1}";
+
+            }
             if (Espressione is ExprParser.PotenzaEspressioneContext Potenza)
             {
-                var Base = Potenza.expr(0);
                 m_expression.SetFomular(Potenza.expr(1).GetText());
                 var Esponente = m_expression.Eval<double>();
                 if (DivisioneB)
                     Esponente = -Esponente;
+
                 return $"{Esponente}*x^{Esponente - 1.0}";
             }
+
             if (Espressione is ExprParser.SommaEspressioneContext Somma)
             {
 
@@ -96,6 +109,7 @@ namespace ProgrammaDerivate
                         return $"1/({Funzione.expr().GetText()}*ln({Funzione.func().NUMBER().GetText()}))*{Derivata(Funzione.expr())}";
                     case "tan":
                         return $"1/sec({Funzione.expr().GetText()})^2*{Derivata(Funzione.expr())}";
+
                 }
             }
 

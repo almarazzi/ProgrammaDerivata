@@ -90,6 +90,20 @@ public partial class ExprBaseListener : IExprListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>RadiceEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRadiceEspressione([NotNull] ExprParser.RadiceEspressioneContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RadiceEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRadiceEspressione([NotNull] ExprParser.RadiceEspressioneContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>DerivataEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>

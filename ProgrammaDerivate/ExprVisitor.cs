@@ -59,6 +59,13 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>RadiceEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRadiceEspressione([NotNull] ExprParser.RadiceEspressioneContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>DerivataEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

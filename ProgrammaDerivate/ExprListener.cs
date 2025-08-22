@@ -77,6 +77,18 @@ public interface IExprListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>RadiceEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRadiceEspressione([NotNull] ExprParser.RadiceEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RadiceEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRadiceEspressione([NotNull] ExprParser.RadiceEspressioneContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>DerivataEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

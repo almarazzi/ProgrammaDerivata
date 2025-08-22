@@ -3,9 +3,10 @@ using ProgrammaDerivate;
 
 
 Console.WriteLine("Qui vengono calcolate le derivate prime.");
+Console.WriteLine("nota che x non va bene si deve essere espliciti");
 Console.WriteLine("Per calcolare la derivata di una potenza, usa una notazione come y=(x^9).");
 char[] Segni = { '+', '-', '/', '*' };
-for (int i = Segni.Length-1; i > 1; i--)
+for (int i = Segni.Length - 1; i > 1; i--)
 {
     Console.WriteLine($"Per calcolare la derivata k{Segni[i]}f(x), usa una notazione come y=((k){Segni[i]}f(x)).");
 }
@@ -19,17 +20,18 @@ Console.WriteLine($"Per calcolare la derivata ln(f(x)), usa una notazione come y
 Console.WriteLine($"Per calcolare la derivata logbase(f(x)), usa una notazione come y=(logbase(f(x))).");
 Console.WriteLine($"Per calcolare la derivata tan(f(x)), usa una notazione come y=(tan(f(x))).");
 Console.WriteLine($"Per calcolare la derivata e^(f(x)), usa una notazione come y=(e^(f(x))).");
+Console.WriteLine($"Per calcolare la derivata di radice , usa una notazione come y=(indicesqrt(f(x))).");
 Console.WriteLine("inserire la tua funzione qui sotto.");
 var ascolto = new Ascolto();
 var f = Console.ReadLine();
-var lexer =  new AntlrInputStream(f);
+var lexer = new AntlrInputStream(f);
 var l = new ExprLexer(lexer);
 var tokens = new CommonTokenStream(l);
 var parser = new ExprParser(tokens);
 var tree = parser.expr();
 var g = ascolto.Visit(tree);
-Console.WriteLine("Funzione: "+f);
-Console.WriteLine("Derivata: y'="+g);
+Console.WriteLine("Funzione: " + f);
+Console.WriteLine("Derivata: y'=" + g);
 
 
 
