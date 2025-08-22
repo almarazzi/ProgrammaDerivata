@@ -18,7 +18,7 @@ expr
 
 // Funzioni matematiche
 func
-    : 'sin' | 'cos' | 'tan' | 'log' | 'ln'
+    : 'sin' | 'cos' | 'tan' | 'log' NUMBER | 'ln' | 'e^'
     ;
 
 // Token
