@@ -8,7 +8,7 @@ Console.WriteLine("Per calcolare la derivata di una potenza, usa una notazione c
 char[] Segni = { '+', '-', '/', '*' };
 for (int i = Segni.Length - 1; i > 1; i--)
 {
-    Console.WriteLine($"Per calcolare la derivata k{Segni[i]}f(x), usa una notazione come y=((k){Segni[i]}f(x)).");
+    Console.WriteLine($"Per calcolare la derivata k{Segni[i]}f(x), usa una notazione come y=((k){Segni[i]}(f(x))).");
 }
 for (int i = 0; i < Segni.Length; i++)
 {
