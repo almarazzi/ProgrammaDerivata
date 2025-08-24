@@ -104,7 +104,7 @@ namespace ProgrammaDerivate
                     case "ln":
                         return $"1/{Funzione.expr().GetText()}*{Derivata(Funzione.expr())}";
                     case "e^":
-                        return $"e^({Funzione.expr().GetText()})";
+                        return $"e^({Funzione.expr().GetText()})*{Derivata(Funzione.expr())}";
                     case "tan":
                         return $"1/sec({Funzione.expr().GetText()})^2*{Derivata(Funzione.expr())}";
                     case string s when s == $"log{Funzione.func().NUMBER().GetText()!}":

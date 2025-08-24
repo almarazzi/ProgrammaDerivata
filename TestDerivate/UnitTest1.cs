@@ -92,7 +92,7 @@ namespace TestDerivate
         public void TestFun()
         {
             string[] fun = { "sin(x)", "cos(x)", "tan(x)", $"log{10}(x)", "ln(x)", "e^(x)" };
-            string[] Ris = { "cos(x)*1", "-sin(x)*1", "1/sec(x)^2*1", "1/(x*ln(10))*1", "1/x*1", "e^(x)" };
+            string[] Ris = { "cos(x)*1", "-sin(x)*1", "1/sec(x)^2*1", "1/(x*ln(10))*1", "1/x*1", "e^(x)*1" };
             for (int i = 0; i < fun.Length; i++)
             {
                 var t = Derivata($"y=({fun[i]})");
