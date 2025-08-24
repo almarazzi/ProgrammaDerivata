@@ -83,7 +83,7 @@ namespace ProgrammaDerivate
             {
                 if (Divisione.expr(0).GetText().Contains("x") && Divisione.expr(0).GetText().Contains("x"))
                 {
-                    return $"(({Derivata(Divisione.expr(0))})*{Divisione.expr(1).GetText()} - {Divisione.expr(0).GetText()}*({Derivata(Divisione.expr(1))}))/({Divisione.expr(1).GetText()})^2";
+                    return $"(({Derivata(Divisione.expr(0))})*{Divisione.expr(1).GetText()} - {Divisione.expr(0).GetText()}*({Derivata(Divisione.expr(1))}))/{Divisione.expr(1).GetText()}^2";
                 }
                 else if (Divisione.expr(1).GetText().Contains("x"))
                 {
@@ -102,13 +102,13 @@ namespace ProgrammaDerivate
                     case "cos":
                         return $"-sin({Funzione.expr().GetText()})*{Derivata(Funzione.expr())}";
                     case "ln":
-                        return $"1/{Funzione.expr().GetText}*{Derivata(Funzione.expr())}";
+                        return $"1/{Funzione.expr().GetText()}*{Derivata(Funzione.expr())}";
                     case "e^":
                         return $"e^({Funzione.expr().GetText()})";
-                    case string s when s == $"log{Funzione.func().NUMBER().GetText()}":
-                        return $"1/({Funzione.expr().GetText()}*ln({Funzione.func().NUMBER().GetText()}))*{Derivata(Funzione.expr())}";
                     case "tan":
                         return $"1/sec({Funzione.expr().GetText()})^2*{Derivata(Funzione.expr())}";
+                    case string s when s == $"log{Funzione.func().NUMBER().GetText()!}":
+                        return $"1/({Funzione.expr().GetText()}*ln({Funzione.func().NUMBER().GetText()}))*{Derivata(Funzione.expr())}";
 
                 }
             }

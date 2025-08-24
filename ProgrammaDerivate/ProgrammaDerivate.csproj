@@ -10,6 +10,9 @@
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
     <PackageReference Include="org.matheval" Version="1.0.0.3" />
+	  <InternalsVisibleTo Include="TestDerivate"/>
   </ItemGroup>
+
+
 
 </Project>

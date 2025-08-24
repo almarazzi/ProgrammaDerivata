@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammaDerivate", "ProgrammaDerivate\ProgrammaDerivate.csproj", "{35F94A80-F498-4E96-A0A1-64A23E59C73B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDerivate", "TestDerivate\TestDerivate.csproj", "{124A3AE3-14D5-4678-8D33-137779F4D576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{35F94A80-F498-4E96-A0A1-64A23E59C73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F94A80-F498-4E96-A0A1-64A23E59C73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F94A80-F498-4E96-A0A1-64A23E59C73B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{124A3AE3-14D5-4678-8D33-137779F4D576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{124A3AE3-14D5-4678-8D33-137779F4D576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{124A3AE3-14D5-4678-8D33-137779F4D576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{124A3AE3-14D5-4678-8D33-137779F4D576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
