@@ -14,6 +14,16 @@ expr
     | '(' expr ')'         #ParentesiEspressione
     | NUMBER               #NumeroEspressione
     | ID                   #CostanteEspressione
+	| 'g=' '(' ss ')'	   #CasoEspressione
+    ;
+ss
+    : ss '*' ss      # Moltipicazione
+    | ss '/' ss      # Divizione
+	| ss '+' ss      # Somma
+    | ss '-' ss      # Sotrazione
+    | NUMBER         # Number
+    | ID             # Id
+    | '(' ss ')'   # Parens
     ;
 	
 

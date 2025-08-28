@@ -20,6 +20,16 @@ namespace ProgrammaDerivate
 
 
         }
+
+        public override string VisitCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context)
+        {
+            var Espressione = context.ss();
+            var f = semplifica(Espressione);
+            string Risultato = $"{f.Costanti}+{f.conX["x"]}";
+            return Risultato;
+
+
+        }
         private string Derivata([NotNull] ExprParser.ExprContext Espressione)
         {
 
@@ -114,5 +124,121 @@ namespace ProgrammaDerivate
 
             return "non è una derivata";
         }
+
+
+        private Semplificazione semplifica([NotNull] ExprParser.SsContext d)
+        {
+            var m_Semplificazione = new Semplificazione();
+            if (d is ExprParser.ParensContext P)
+            {
+                return semplifica(P.ss());
+            }
+            if (d is ExprParser.NumberContext N)
+            {
+                m_Semplificazione.Costanti = double.Parse(N.GetText());
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.IdContext I)
+            {
+                m_Semplificazione.conX[I.GetText()] = 1;
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.SommaContext S)
+            {
+                var s = semplifica(S.ss(0));
+                var de = semplifica(S.ss(1));
+                foreach (var item in s.conX.Concat(de.conX))
+                {
+                    if (!m_Semplificazione.conX.ContainsKey(item.Key))
+                    {
+                        m_Semplificazione.conX[item.Key] = item.Value;
+                    }
+                    else
+                    {
+                        m_Semplificazione.conX[item.Key] += item.Value;
+                    }
+
+                }
+                m_Semplificazione.Costanti = s.Costanti + de.Costanti;
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.SotrazioneContext Po)
+            {
+                var s = semplifica(Po.ss(0));
+                var de = semplifica(Po.ss(1));
+                foreach (var item in s.conX.Concat(de.conX))
+                {
+                    if (m_Semplificazione.conX.ContainsKey(item.Key))
+                    {
+                        m_Semplificazione.conX[item.Key] -= item.Value;
+                    }
+                    else
+                    {
+                        m_Semplificazione.conX[item.Key] = item.Value;
+                    }
+                }
+
+                m_Semplificazione.Costanti = s.Costanti - de.Costanti;
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.MoltipicazioneContext M)
+            {
+                var s = semplifica(M.ss(0));
+                var de = semplifica(M.ss(1));
+
+                foreach (var item in s.conX.Concat(de.conX))
+                {
+                    if (M.ss(1) is ExprParser.IdContext)
+                    {
+                        if (de.conX.ContainsKey(item.Key))
+                        {
+                            m_Semplificazione.conX[item.Key] = s.Costanti;
+                        }
+                    }
+                    else
+                    {
+                        if (m_Semplificazione.conX.ContainsKey(item.Key))
+                        {
+                            m_Semplificazione.conX[item.Key] *= item.Value;
+                        }
+                        else
+                        {
+                            m_Semplificazione.conX[item.Key] = item.Value;
+                        }
+                    }
+
+                }
+                m_Semplificazione.Costanti = s.Costanti * de.Costanti;
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.DivizioneContext D)
+            {
+                var s = semplifica(D.ss(0));
+                var de = semplifica(D.ss(1));
+
+                foreach (var item in s.conX.Concat(de.conX))
+                {
+                    if (m_Semplificazione.conX.ContainsKey(item.Key))
+                    {
+                        m_Semplificazione.conX[item.Key] /= item.Value;
+                    }
+                    else
+                    {
+                        m_Semplificazione.conX[item.Key] = item.Value;
+                    }
+                }
+                if (de.Costanti != 0 && s.Costanti !=0)
+                    m_Semplificazione.Costanti = s.Costanti / de.Costanti;
+
+                return m_Semplificazione;
+            }
+            return m_Semplificazione;
+        }
     }
+    class Semplificazione
+    {
+        public double Costanti;
+        public Dictionary<string, double> conX = new Dictionary<string, double>();
+    }
+
 }

@@ -8,19 +8,19 @@ namespace TestDerivate
         private readonly Ascolto m_ascolto = new Ascolto();
 
 
-        private ExprParser.ExprContext Derivata(string d)
+        private ExprParser.ExprContext Espressione(string d)
         {
             var inp = new AntlrInputStream(d);
             var exp = new ExprLexer(inp);
             var token = new CommonTokenStream(exp);
             var p = new ExprParser(token);
-             return p.expr();
+            return p.expr();
         }
         [Fact]
         public void TestPotenza()
         {
 
-            var t = Derivata("y=(x^(9*2))");
+            var t = Espressione("y=(x^(9*2))");
             var g = m_ascolto.Visit(t);
             var s = "18*x^17";
             Assert.Equal(g, s);
@@ -29,7 +29,7 @@ namespace TestDerivate
         public void TestPotenzaMol()
         {
 
-            var t = Derivata("y=((2)*(x^9))");
+            var t = Espressione("y=((2)*(x^9))");
             var g = m_ascolto.Visit(t);
             var s = "2*9*x^8";
             Assert.Equal(g, s);
@@ -39,7 +39,7 @@ namespace TestDerivate
         public void TestPotenzaDiv()
         {
 
-            var t = Derivata("y=((2)/(x^9))");
+            var t = Espressione("y=((2)/(x^9))");
             var g = m_ascolto.Visit(t);
             var s = "2*-9*x^-10";
             Assert.Equal(g, s);
@@ -47,7 +47,7 @@ namespace TestDerivate
         [Fact]
         public void TestRadice()
         {
-            var t = Derivata("y=(2sqrt(x^3))");
+            var t = Espressione("y=(2sqrt(x^3))");
             var g = m_ascolto.Visit(t);
             var s = "1,5*x^0,5";
             Assert.Equal(g, s);
@@ -56,7 +56,7 @@ namespace TestDerivate
         public void TestSomma()
         {
 
-            var t = Derivata("y=((x^2)+(x^3))");
+            var t = Espressione("y=((x^2)+(x^3))");
             var g = m_ascolto.Visit(t);
             var s = "2*x^1 + 3*x^2";
             Assert.Equal(g, s);
@@ -65,7 +65,7 @@ namespace TestDerivate
         public void TestMeno()
         {
 
-            var t = Derivata("y=((x^2)-(x^3))");
+            var t = Espressione("y=((x^2)-(x^3))");
             var g = m_ascolto.Visit(t);
             var s = "2*x^1 - 3*x^2";
             Assert.Equal(g, s);
@@ -74,7 +74,7 @@ namespace TestDerivate
         public void TestPer()
         {
 
-            var t = Derivata("y=((x^2)*(x^3))");
+            var t = Espressione("y=((x^2)*(x^3))");
             var g = m_ascolto.Visit(t);
             var s = "(2*x^1)*(x^3) + (x^2)*(3*x^2)";
             Assert.Equal(g, s);
@@ -83,7 +83,7 @@ namespace TestDerivate
         public void TestDiv()
         {
 
-            var t = Derivata("y=((x^2)/(x^3))");
+            var t = Espressione("y=((x^2)/(x^3))");
             var g = m_ascolto.Visit(t);
             var s = "((2*x^1)*(x^3) - (x^2)*(3*x^2))/(x^3)^2";
             Assert.Equal(g, s);
@@ -95,12 +95,12 @@ namespace TestDerivate
             string[] Ris = { "cos(x)*1", "-sin(x)*1", "1/sec(x)^2*1", "1/(x*ln(10))*1", "1/x*1", "e^(x)*1" };
             for (int i = 0; i < fun.Length; i++)
             {
-                var t = Derivata($"y=({fun[i]})");
+                var t = Espressione($"y=({fun[i]})");
                 var g = m_ascolto.Visit(t);
                 var s = $"{Ris[i]}";
                 Assert.Equal(g, s);
             }
-            
+
         }
         [Fact]
         public void TestFunzioneComposta()
@@ -110,12 +110,20 @@ namespace TestDerivate
             for (int i = 0; i < fun.Length; i++)
             {
 
-                var t = Derivata($"y=({fun[i]})");
+                var t = Espressione($"y=({fun[i]})");
                 var g = m_ascolto.Visit(t);
                 var s = $"{Ris[i]}";
                 Assert.Equal(g, s);
             }
 
+        }
+        [Fact]
+        public void TestSemplificazione()
+        {
+            var t = Espressione("g=(((3*x)/(2*x))*(5*x)-(2*10))");
+            var g = m_ascolto.Visit(t);
+            var s = "-20+7,5";
+            Assert.Equal(g, s);
         }
     }
 }

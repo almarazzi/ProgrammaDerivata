@@ -1,7 +1,6 @@
 ﻿using Antlr4.Runtime;
 using ProgrammaDerivate;
 
-
 Console.WriteLine("Qui vengono calcolate le derivate prime.");
 Console.WriteLine("nota che x non va bene si deve essere espliciti");
 Console.WriteLine("Per calcolare la derivata di una potenza, usa una notazione come y=(x^9).");
@@ -21,19 +20,15 @@ Console.WriteLine($"Per calcolare la derivata logbase(f(x)), usa una notazione c
 Console.WriteLine($"Per calcolare la derivata tan(f(x)), usa una notazione come y=(tan(f(x))).");
 Console.WriteLine($"Per calcolare la derivata e^(f(x)), usa una notazione come y=(e^(f(x))).");
 Console.WriteLine($"Per calcolare la derivata di radice , usa una notazione come y=(indicesqrt(f(x))).");
+Console.WriteLine("puoi girare la pagina");
 Console.WriteLine("inserire la tua funzione qui sotto.");
+var y = Console.ReadLine();
 var ascolto = new Ascolto();
-var f = Console.ReadLine();
-var lexer = new AntlrInputStream(f);
+var lexer = new AntlrInputStream(y);
 var l = new ExprLexer(lexer);
 var tokens = new CommonTokenStream(l);
 var parser = new ExprParser(tokens);
 var tree = parser.expr();
 var g = ascolto.Visit(tree);
-Console.WriteLine("Funzione: " + f);
+Console.WriteLine("Funzione: " + y);
 Console.WriteLine("Derivata: y'=" + g);
-
-
-
-
-

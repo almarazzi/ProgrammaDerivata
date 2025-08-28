@@ -77,6 +77,18 @@ public interface IExprListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>CasoEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CasoEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>RadiceEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>
@@ -172,6 +184,90 @@ public interface IExprListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitNumeroEspressione([NotNull] ExprParser.NumeroEspressioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Somma</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSomma([NotNull] ExprParser.SommaContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Somma</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSomma([NotNull] ExprParser.SommaContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Divizione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDivizione([NotNull] ExprParser.DivizioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Divizione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDivizione([NotNull] ExprParser.DivizioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Number</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNumber([NotNull] ExprParser.NumberContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Number</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNumber([NotNull] ExprParser.NumberContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Parens</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParens([NotNull] ExprParser.ParensContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Parens</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParens([NotNull] ExprParser.ParensContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sotrazione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSotrazione([NotNull] ExprParser.SotrazioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sotrazione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSotrazione([NotNull] ExprParser.SotrazioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Moltipicazione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMoltipicazione([NotNull] ExprParser.MoltipicazioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Moltipicazione</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMoltipicazione([NotNull] ExprParser.MoltipicazioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Id</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterId([NotNull] ExprParser.IdContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Id</c>
+	/// labeled alternative in <see cref="ExprParser.ss"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitId([NotNull] ExprParser.IdContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ExprParser.func"/>.
 	/// </summary>
