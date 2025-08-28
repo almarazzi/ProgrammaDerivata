@@ -125,18 +125,6 @@ public interface IExprListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>NumeroNeg</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterNumeroNeg([NotNull] ExprParser.NumeroNegContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>NumeroNeg</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitNumeroNeg([NotNull] ExprParser.NumeroNegContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>SommaEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

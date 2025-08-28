@@ -13,7 +13,6 @@ namespace ProgrammaDerivate
         private readonly Expression m_expression = new Expression();
         private bool DivisioneB = false;
 
-
         public override string VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context)
         {
             var Espressione = context.expr();
@@ -40,7 +39,7 @@ namespace ProgrammaDerivate
             {
                 m_expression.SetFomular(Radice.expr(0).GetText());
                 var Indice = m_expression.Eval<double>();
-                var f = Radice.expr(1).GetText().Replace("(","").Replace(")","").Split('^');
+                var f = Radice.expr(1).GetText().Replace("(", "").Replace(")", "").Split('^');
                 m_expression.SetFomular(f[1]);
                 var Esponente = m_expression.Eval<double>();
                 return $"{Esponente / Indice}*x^{(Esponente / Indice) - 1}";
@@ -115,7 +114,5 @@ namespace ProgrammaDerivate
 
             return "non è una derivata";
         }
-
-
     }
 }

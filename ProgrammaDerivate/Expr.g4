@@ -12,10 +12,10 @@ expr
     | 'y=' '(' expr ')'    #DerivataEspressione
     | func '(' expr ')'    #FunzioneEspressione
     | '(' expr ')'         #ParentesiEspressione
-	| '-' NUMBER			#NumeroNeg
     | NUMBER               #NumeroEspressione
     | ID                   #CostanteEspressione
     ;
+	
 
 // Funzioni matematiche
 func
@@ -24,5 +24,5 @@ func
 
 // Token
 ID      : 'x' ;                              // Identificatore
-NUMBER  : [0-9]+ ('.' [0-9]+)? ;            // Numeri interi o decimali
+NUMBER  : [-]?[0-9]+ ('.' [0-9]+)? ;            // Numeri interi o decimali
 WS      : [ \t\r\n]+ -> skip ;              // Spazi bianchi ignorati

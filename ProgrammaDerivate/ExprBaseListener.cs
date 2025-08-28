@@ -146,20 +146,6 @@ public partial class ExprBaseListener : IExprListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>NumeroNeg</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNumeroNeg([NotNull] ExprParser.NumeroNegContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>NumeroNeg</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNumeroNeg([NotNull] ExprParser.NumeroNegContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by the <c>SommaEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>

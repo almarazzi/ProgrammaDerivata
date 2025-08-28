@@ -87,13 +87,6 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>NumeroNeg</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNumeroNeg([NotNull] ExprParser.NumeroNegContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>SommaEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>
