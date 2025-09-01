@@ -122,7 +122,7 @@ namespace TestDerivate
         {
             var t = Espressione("g=(((3*x)/(2*x))*(5*x)-(2*10))");
             var g = m_ascolto.Visit(t);
-            var s = "-20+7,5";
+            var s = "-20+(7,5*x)";
             Assert.Equal(g, s);
         }
     }

@@ -3,30 +3,19 @@ grammar Expr;
 prog: expr EOF ;      // Punto di ingresso
 
 expr
-    : expr '+' expr        #SommaEspressione
-    | expr '-' expr        #SottrazioneEspressione
-    | expr '*' expr        #MoltiplicazioneEspressione
+    : expr '^' expr        #PotenzaEspressione
     | expr '/' expr        #DivisioneEspressione
-    | expr '^' expr        #PotenzaEspressione
+	| expr '*' expr        #MoltiplicazioneEspressione
+    | expr '+' expr        #SommaEspressione
+    | expr '-' expr        #SottrazioneEspressione
 	| expr 'sqrt' expr     #RadiceEspressione
     | 'y=' '(' expr ')'    #DerivataEspressione
     | func '(' expr ')'    #FunzioneEspressione
     | '(' expr ')'         #ParentesiEspressione
     | NUMBER               #NumeroEspressione
     | ID                   #CostanteEspressione
-	| 'g=' '(' ss ')'	   #CasoEspressione
-    ;
-ss
-    : ss '*' ss      # Moltipicazione
-    | ss '/' ss      # Divizione
-	| ss '+' ss      # Somma
-    | ss '-' ss      # Sotrazione
-    | NUMBER         # Number
-    | ID             # Id
-    | '(' ss ')'   # Parens
     ;
 	
-
 // Funzioni matematiche
 func
     : 'sin' | 'cos' | 'tan' | 'log' NUMBER | 'ln' | 'e^'

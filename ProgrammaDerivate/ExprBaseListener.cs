@@ -90,20 +90,6 @@ public partial class ExprBaseListener : IExprListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>CasoEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>CasoEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by the <c>RadiceEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -215,104 +201,6 @@ public partial class ExprBaseListener : IExprListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitNumeroEspressione([NotNull] ExprParser.NumeroEspressioneContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Somma</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSomma([NotNull] ExprParser.SommaContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Somma</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSomma([NotNull] ExprParser.SommaContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Divizione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDivizione([NotNull] ExprParser.DivizioneContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Divizione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDivizione([NotNull] ExprParser.DivizioneContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Number</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNumber([NotNull] ExprParser.NumberContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Number</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNumber([NotNull] ExprParser.NumberContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Parens</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterParens([NotNull] ExprParser.ParensContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Parens</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitParens([NotNull] ExprParser.ParensContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Sotrazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSotrazione([NotNull] ExprParser.SotrazioneContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Sotrazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSotrazione([NotNull] ExprParser.SotrazioneContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Moltipicazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMoltipicazione([NotNull] ExprParser.MoltipicazioneContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Moltipicazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMoltipicazione([NotNull] ExprParser.MoltipicazioneContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Id</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterId([NotNull] ExprParser.IdContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Id</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitId([NotNull] ExprParser.IdContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ExprParser.func"/>.
 	/// <para>The default implementation does nothing.</para>

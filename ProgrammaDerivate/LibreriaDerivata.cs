@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using org.matheval;
+using System.Text;
 
 
 
@@ -12,24 +13,25 @@ namespace ProgrammaDerivate
     {
         private readonly Expression m_expression = new Expression();
         private bool DivisioneB = false;
+        private readonly StringBuilder m_output = new StringBuilder();
 
         public override string VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context)
         {
             var Espressione = context.expr();
-            return Derivata(Espressione);
+            var g = semplifica(Espressione);
+            m_output.Append("Semplificazione= ");
+            foreach (var item in g.conX)
+            {
+                m_output.Append($"({g.conX[item.Key]}*x^{item.Key})+");
+            }
+            m_output.Append($"{g.Costanti}");
+            return m_output.ToString();
+            // return Derivata(Espressione);
 
 
         }
 
-        public override string VisitCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context)
-        {
-            var Espressione = context.ss();
-            var f = semplifica(Espressione);
-            string Risultato = $"{f.Costanti}+{f.conX["x"]}";
-            return Risultato;
 
-
-        }
         private string Derivata([NotNull] ExprParser.ExprContext Espressione)
         {
 
@@ -126,109 +128,81 @@ namespace ProgrammaDerivate
         }
 
 
-        private Semplificazione semplifica([NotNull] ExprParser.SsContext d)
+        private Semplificazione semplifica([NotNull] ExprParser.ExprContext d)
         {
             var m_Semplificazione = new Semplificazione();
-            if (d is ExprParser.ParensContext P)
+            if (d is ExprParser.ParentesiEspressioneContext P)
             {
-                return semplifica(P.ss());
+                return semplifica(P.expr());
             }
-            if (d is ExprParser.NumberContext N)
+            if (d is ExprParser.NumeroEspressioneContext N)
             {
                 m_Semplificazione.Costanti = double.Parse(N.GetText());
                 return m_Semplificazione;
             }
-            if (d is ExprParser.IdContext I)
+            if (d is ExprParser.CostanteEspressioneContext I)
             {
-                m_Semplificazione.conX[I.GetText()] = 1;
+                m_Semplificazione.conX["1"] = 1;
                 return m_Semplificazione;
             }
-            if (d is ExprParser.SommaContext S)
+            if (d is ExprParser.PotenzaEspressioneContext Pot)
             {
-                var s = semplifica(S.ss(0));
-                var de = semplifica(S.ss(1));
+                m_Semplificazione.conX[Pot.expr(1).GetText()] = 1;
+                return m_Semplificazione;
+            }
+            if (d is ExprParser.SommaEspressioneContext S)
+            {
+                var s = semplifica(S.expr(0));
+                var de = semplifica(S.expr(1));
                 foreach (var item in s.conX.Concat(de.conX))
                 {
-                    if (!m_Semplificazione.conX.ContainsKey(item.Key))
-                    {
-                        m_Semplificazione.conX[item.Key] = item.Value;
-                    }
-                    else
-                    {
+                    if (m_Semplificazione.conX.ContainsKey(item.Key))
                         m_Semplificazione.conX[item.Key] += item.Value;
-                    }
-
+                    else
+                        m_Semplificazione.conX[item.Key] = item.Value;
                 }
                 m_Semplificazione.Costanti = s.Costanti + de.Costanti;
                 return m_Semplificazione;
             }
-            if (d is ExprParser.SotrazioneContext Po)
+            if (d is ExprParser.SottrazioneEspressioneContext Po)
             {
-                var s = semplifica(Po.ss(0));
-                var de = semplifica(Po.ss(1));
+                var s = semplifica(Po.expr(0));
+                var de = semplifica(Po.expr(1));
                 foreach (var item in s.conX.Concat(de.conX))
                 {
                     if (m_Semplificazione.conX.ContainsKey(item.Key))
-                    {
                         m_Semplificazione.conX[item.Key] -= item.Value;
-                    }
                     else
-                    {
                         m_Semplificazione.conX[item.Key] = item.Value;
-                    }
                 }
-
                 m_Semplificazione.Costanti = s.Costanti - de.Costanti;
                 return m_Semplificazione;
             }
-            if (d is ExprParser.MoltipicazioneContext M)
+            if (d is ExprParser.MoltiplicazioneEspressioneContext M)
             {
-                var s = semplifica(M.ss(0));
-                var de = semplifica(M.ss(1));
+                var s = semplifica(M.expr(0));
+                var de = semplifica(M.expr(1));
 
-                foreach (var item in s.conX.Concat(de.conX))
-                {
-                    if (M.ss(1) is ExprParser.IdContext)
-                    {
-                        if (de.conX.ContainsKey(item.Key))
-                        {
-                            m_Semplificazione.conX[item.Key] = s.Costanti;
-                        }
-                    }
-                    else
-                    {
-                        if (m_Semplificazione.conX.ContainsKey(item.Key))
-                        {
-                            m_Semplificazione.conX[item.Key] *= item.Value;
-                        }
-                        else
-                        {
-                            m_Semplificazione.conX[item.Key] = item.Value;
-                        }
-                    }
-
-                }
-                m_Semplificazione.Costanti = s.Costanti * de.Costanti;
+                var nX = s.conX.Values.Concat(de.conX.Values).Aggregate((x, z) => x * z);
+                var n = ((s.Costanti != 0) ? s.Costanti : 1) * ((de.Costanti != 0) ? de.Costanti : 1);
+                var e = s.conX.Keys.Concat(de.conX.Keys).Select(x => int.Parse(x)).Sum();
+                m_Semplificazione.conX[e.ToString()] = nX * n;
+                if (e.ToString() == "0")
+                    m_Semplificazione.Costanti = s.Costanti * de.Costanti;
                 return m_Semplificazione;
             }
-            if (d is ExprParser.DivizioneContext D)
+            if (d is ExprParser.DivisioneEspressioneContext D)
             {
-                var s = semplifica(D.ss(0));
-                var de = semplifica(D.ss(1));
+                var s = semplifica(D.expr(0));
+                var de = semplifica(D.expr(1));
 
-                foreach (var item in s.conX.Concat(de.conX))
-                {
-                    if (m_Semplificazione.conX.ContainsKey(item.Key))
-                    {
-                        m_Semplificazione.conX[item.Key] /= item.Value;
-                    }
-                    else
-                    {
-                        m_Semplificazione.conX[item.Key] = item.Value;
-                    }
-                }
-                if (de.Costanti != 0 && s.Costanti !=0)
-                    m_Semplificazione.Costanti = s.Costanti / de.Costanti;
+                var nX = s.conX.Values.Concat(de.conX.Values).Aggregate((x, z) => x * (1 / z));
+                var n = ((s.Costanti != 0) ? s.Costanti : 1) * (1 / ((de.Costanti != 0) ? de.Costanti : 1));
+                var e = s.conX.Keys.Concat(de.conX.Keys).Select(x => int.Parse(x)).Sum();
+                m_Semplificazione.conX[e.ToString()] = nX * n;
+                if (e.ToString() == "0")
+
+                    m_Semplificazione.Costanti = n;
 
                 return m_Semplificazione;
             }

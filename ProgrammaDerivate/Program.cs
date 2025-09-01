@@ -31,4 +31,5 @@ var parser = new ExprParser(tokens);
 var tree = parser.expr();
 var g = ascolto.Visit(tree);
 Console.WriteLine("Funzione: " + y);
-Console.WriteLine("Derivata: y'=" + g);
+Console.WriteLine("Derivata: y'=");
+Console.WriteLine(g);

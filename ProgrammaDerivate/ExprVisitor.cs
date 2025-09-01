@@ -59,13 +59,6 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCostanteEspressione([NotNull] ExprParser.CostanteEspressioneContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>CasoEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCasoEspressione([NotNull] ExprParser.CasoEspressioneContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>RadiceEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>
@@ -121,55 +114,6 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNumeroEspressione([NotNull] ExprParser.NumeroEspressioneContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Somma</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSomma([NotNull] ExprParser.SommaContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Divizione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDivizione([NotNull] ExprParser.DivizioneContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Number</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNumber([NotNull] ExprParser.NumberContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Parens</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitParens([NotNull] ExprParser.ParensContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Sotrazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSotrazione([NotNull] ExprParser.SotrazioneContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Moltipicazione</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMoltipicazione([NotNull] ExprParser.MoltipicazioneContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Id</c>
-	/// labeled alternative in <see cref="ExprParser.ss"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitId([NotNull] ExprParser.IdContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="ExprParser.func"/>.
 	/// </summary>
