@@ -73,6 +73,13 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>NumNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumNeg([NotNull] ExprParser.NumNegContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>DivisioneEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

@@ -101,6 +101,18 @@ public interface IExprListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>NumNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNumNeg([NotNull] ExprParser.NumNegContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NumNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNumNeg([NotNull] ExprParser.NumNegContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>DivisioneEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

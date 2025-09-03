@@ -118,6 +118,20 @@ public partial class ExprBaseListener : IExprListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>NumNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNumNeg([NotNull] ExprParser.NumNegContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NumNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNumNeg([NotNull] ExprParser.NumNegContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>DivisioneEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>

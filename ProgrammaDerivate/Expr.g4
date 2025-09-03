@@ -13,6 +13,7 @@ expr
     | func '(' expr ')'    #FunzioneEspressione
     | '(' expr ')'         #ParentesiEspressione
     | NUMBER               #NumeroEspressione
+	| '-' NUMBER		   #NumNeg
     | ID                   #CostanteEspressione
     ;
 	
@@ -23,5 +24,5 @@ func
 
 // Token
 ID      : 'x' ;                              // Identificatore
-NUMBER  : [-]?[0-9]+ ('.' [0-9]+)? ;            // Numeri interi o decimali
+NUMBER  : [0-9]+ ('.' [0-9]+)? ;            // Numeri interi o decimali
 WS      : [ \t\r\n]+ -> skip ;              // Spazi bianchi ignorati
