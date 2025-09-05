@@ -122,7 +122,7 @@ namespace TestDerivate
         {
             var t = Espressione("y=(((3*x)/(2*x))*(5*x)-(2*10))");
             var g = m_ascolto.Visit(t);
-            var s = "Semplificazione =+(7,5*x^3)-20";
+            var s = "7,5*x^3-20";
             Assert.Equal(g, s);
         }
     }
