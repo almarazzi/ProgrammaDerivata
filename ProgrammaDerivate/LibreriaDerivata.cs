@@ -41,18 +41,21 @@ namespace ProgrammaDerivate
             }
             if (Espressione.Funzioni != null)
             {
-                var a = (m_output.Length != 0 && Espressione.Funzioni != null) ? "+" : "";
-                m_output.Append($"{a}{Espressione.Funzioni}");
+                m_output.Append($"{Espressione.Funzioni}");
             }
         }
         public override string VisitDerivataEspressione([NotNull] ExprParser.DerivataEspressioneContext context)
+        {
+            var Espressione = context.expr();
+            return Derivata(Espressione);
+        }
+        public override string VisitSemplificazioneEspressione([NotNull] ExprParser.SemplificazioneEspressioneContext context)
         {
             var Espressione = context.expr();
             var g = semplifica(Espressione);
             m_output.Clear();
             Stringa(g);
             return m_output.ToString();
-            // return Derivata(Espressione);
         }
         private string Derivata([NotNull] ExprParser.ExprContext Espressione)
         {
@@ -187,14 +190,14 @@ namespace ProgrammaDerivate
                     var dee = semplifica(de.ArgFunzioni);
                     Stringa(ss);
                     Stringa(dee);
-                    var piu =Input($"y=(({m_output})/ 2)");
+                    var piu = Input($"s=(({m_output})/ 2)");
                     m_output.Clear();
                     Stringa(ss);
                     dee.Costanti = -dee.Costanti;
                     dee.conX = dee.conX.ToDictionary(k => k.Key, v => -v.Value);
                     Stringa(dee);
-                    var meno = Input($"y=(({m_output})/ 2)");
-                    m_Semplificazione.Funzioni = $"2{s.Funzioni}(({piu}))*{((de.Funzioni == "sin") ? "cos" : "")}(({meno}))";
+                    var meno = Input($"s=(({m_output})/ 2)");
+                    m_Semplificazione.Funzioni = $"2{s.Funzioni}(({piu}))*{((de.Funzioni == "sin") ? "cos" : "cos")}(({meno}))";
                     return m_Semplificazione;
                 }
                 foreach (var item in s.conX.Concat(de.conX))

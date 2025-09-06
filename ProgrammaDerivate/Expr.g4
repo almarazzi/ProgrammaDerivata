@@ -10,6 +10,7 @@ expr
     | expr '-' expr        #SottrazioneEspressione
 	| expr 'sqrt' expr     #RadiceEspressione
     | 'y=' '(' expr ')'    #DerivataEspressione
+	| 's=' '(' expr ')'    #SemplificazioneEspressione
     | func '(' expr ')'    #FunzioneEspressione
     | '(' expr ')'         #ParentesiEspressione
     | NUMBER               #NumeroEspressione

@@ -41,6 +41,18 @@ public interface IExprListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitProg([NotNull] ExprParser.ProgContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>SemplificazioneEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSemplificazioneEspressione([NotNull] ExprParser.SemplificazioneEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SemplificazioneEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSemplificazioneEspressione([NotNull] ExprParser.SemplificazioneEspressioneContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>ParentesiEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>
@@ -64,6 +76,42 @@ public interface IExprListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitMoltiplicazioneEspressione([NotNull] ExprParser.MoltiplicazioneEspressioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PotenzaEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PotenzaEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SommaEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSommaEspressione([NotNull] ExprParser.SommaEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SommaEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSommaEspressione([NotNull] ExprParser.SommaEspressioneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SottrazioneEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSottrazioneEspressione([NotNull] ExprParser.SottrazioneEspressioneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SottrazioneEspressione</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSottrazioneEspressione([NotNull] ExprParser.SottrazioneEspressioneContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CostanteEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
@@ -124,42 +172,6 @@ public interface IExprListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitDivisioneEspressione([NotNull] ExprParser.DivisioneEspressioneContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>PotenzaEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>PotenzaEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPotenzaEspressione([NotNull] ExprParser.PotenzaEspressioneContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>SommaEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSommaEspressione([NotNull] ExprParser.SommaEspressioneContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>SommaEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSommaEspressione([NotNull] ExprParser.SommaEspressioneContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>SottrazioneEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSottrazioneEspressione([NotNull] ExprParser.SottrazioneEspressioneContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>SottrazioneEspressione</c>
-	/// labeled alternative in <see cref="ExprParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSottrazioneEspressione([NotNull] ExprParser.SottrazioneEspressioneContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>FunzioneEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.

@@ -1,5 +1,4 @@
-﻿using Antlr4.Runtime;
-using ProgrammaDerivate;
+﻿using ProgrammaDerivate;
 
 Console.WriteLine("Qui vengono calcolate le derivate prime.");
 Console.WriteLine("nota che x non va bene si deve essere espliciti");
@@ -20,11 +19,11 @@ Console.WriteLine($"Per calcolare la derivata logbase(f(x)), usa una notazione c
 Console.WriteLine($"Per calcolare la derivata tan(f(x)), usa una notazione come y=(tan(f(x))).");
 Console.WriteLine($"Per calcolare la derivata e^(f(x)), usa una notazione come y=(e^(f(x))).");
 Console.WriteLine($"Per calcolare la derivata di radice , usa una notazione come y=(indicesqrt(f(x))).");
-Console.WriteLine("puoi girare la pagina");
 Console.WriteLine("inserire la tua funzione qui sotto.");
 var y = Console.ReadLine();
 var ascolto = new Ascolto();
-var g =ascolto.Input(y);
+var g =ascolto.Input(y!);
 Console.WriteLine("Funzione: " + y);
-Console.WriteLine("Derivata: y'=");
-Console.WriteLine(g);
+Console.WriteLine("Derivata: y'=" + g);
+var S = ascolto.Input($"s=({g})");
+Console.WriteLine("Semplificazione =" + S);
