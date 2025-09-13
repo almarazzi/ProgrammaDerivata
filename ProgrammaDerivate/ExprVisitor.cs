@@ -122,6 +122,13 @@ public interface IExprVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitFunzioneEspressione([NotNull] ExprParser.FunzioneEspressioneContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>FuncNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFuncNeg([NotNull] ExprParser.FuncNegContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>NumeroEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// </summary>

@@ -15,6 +15,7 @@ expr
     | '(' expr ')'         #ParentesiEspressione
     | NUMBER               #NumeroEspressione
 	| '-' NUMBER		   #NumNeg
+	| '-' func '('expr')'  #FuncNeg
     | ID                   #CostanteEspressione
     ;
 	

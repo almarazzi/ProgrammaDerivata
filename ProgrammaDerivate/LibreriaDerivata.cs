@@ -29,10 +29,7 @@ namespace ProgrammaDerivate
 
         private void Stringa(Semplificazione Espressione)
         {
-            if (Espressione.Funzioni != null)
-            {
-                m_output.Append($"{Espressione.Funzioni}");
-            }
+
             foreach (var item in Espressione.conX)
             {
                 var d = m_output.Length != 0 && (item.Value >= 0) ? "+" : "";
@@ -87,7 +84,10 @@ namespace ProgrammaDerivate
                 m_expression.SetFomular(Potenza.expr(1).GetText());
                 var Esponente = m_expression.Eval<double>();
                 if (DivisioneB)
+                {
                     Esponente = -Esponente;
+                    DivisioneB = false;
+                }
 
                 return $"{Esponente}*x^{Esponente - 1.0}";
             }
@@ -184,27 +184,12 @@ namespace ProgrammaDerivate
             {
                 var s = semplifica(S.expr(0));
                 var de = semplifica(S.expr(1));
-
-                if (s.Funzioni == de.Funzioni)
+                foreach (var item in s.conX.Concat(de.conX))
                 {
-                    foreach (var item in s.conX.Concat(de.conX))
-                    {
-                        if (m_Semplificazione.conX.ContainsKey(item.Key))
-                            m_Semplificazione.conX[item.Key] += item.Value;
-                        else
-                            m_Semplificazione.conX[item.Key] = item.Value;
-                    }
-                    if (s.Funzioni != null)
-                    {
-                        m_Semplificazione.Costanti = s.Costanti + de.Costanti;
-                        var g = m_Semplificazione.conX.Select(x => x.Value + "*x^" + x.Key).ToList();
-                        var f = string.Join("+", g);
-                        var piu = Input($"s=({m_Semplificazione.Costanti}+{f}/2)");
-                        var meno = Input($"s=({m_Semplificazione.Costanti}-{f}/2)");
-                        m_Semplificazione.Funzioni = $"2{s.Funzioni}({piu})*{((de.Funzioni == "sin") ? "cos" : "cos")}({meno})";
-                        m_Semplificazione.Costanti = 0;
-                        m_Semplificazione.conX.Clear();
-                    }
+                    if (m_Semplificazione.conX.ContainsKey(item.Key))
+                        m_Semplificazione.conX[item.Key] += item.Value;
+                    else
+                        m_Semplificazione.conX[item.Key] = item.Value;
                 }
 
                 m_Semplificazione.Costanti = s.Costanti + de.Costanti;
@@ -219,7 +204,7 @@ namespace ProgrammaDerivate
                     if (m_Semplificazione.conX.ContainsKey(item.Key))
                         m_Semplificazione.conX[item.Key] -= item.Value;
                     else
-                        m_Semplificazione.conX[item.Key] = -item.Value;
+                        m_Semplificazione.conX[item.Key] = item.Value;
                 }
                 m_Semplificazione.Costanti = s.Costanti - de.Costanti;
                 return m_Semplificazione;
@@ -228,11 +213,14 @@ namespace ProgrammaDerivate
             {
                 var s = semplifica(M.expr(0));
                 var de = semplifica(M.expr(1));
-                m_Semplificazione.Funzioni = s.Funzioni ?? de.Funzioni;
-                var n = ((s.Costanti != 0) ? s.Costanti : 1) * ((de.Costanti != 0) ? de.Costanti : 1);
-                if (s.conX.Count == 0 && de.conX.Count == 0)
+                double n;
+                if ((s.conX.Count != 0 || de.conX.Count != 0) && (s.Costanti != 0 || de.Costanti != 0))
                 {
-                    m_Semplificazione.Costanti = n;
+                    n = (((s.Costanti != 0) ? s.Costanti : 1) * ((de.Costanti != 0) ? de.Costanti : 1));
+                }
+                else
+                {
+                    m_Semplificazione.Costanti = s.Costanti * de.Costanti;
                     return m_Semplificazione;
                 }
                 var nX = s.conX.Values.Concat(de.conX.Values).Aggregate((x, z) => x * z);
@@ -244,10 +232,14 @@ namespace ProgrammaDerivate
             {
                 var s = semplifica(D.expr(0));
                 var de = semplifica(D.expr(1));
-                var n = ((s.Costanti != 0) ? s.Costanti : 1) * (1 / ((de.Costanti != 0) ? de.Costanti : 1));
-                if (s.conX.Count == 0 && de.conX.Count == 0)
+                double n;
+                if ((s.conX.Count != 0 || de.conX.Count != 0) && (s.Costanti != 0 || de.Costanti != 0))
                 {
-                    m_Semplificazione.Costanti = n;
+                    n = ((s.Costanti != 0) ? s.Costanti : 1) * (1 / ((de.Costanti != 0) ? de.Costanti : 1));
+                }
+                else
+                {
+                    m_Semplificazione.Costanti = s.Costanti * (1/de.Costanti);
                     return m_Semplificazione;
                 }
                 var nX = s.conX.Values.Concat(de.conX.Values).Aggregate((x, z) => x * (1 / z));
@@ -255,12 +247,10 @@ namespace ProgrammaDerivate
                 m_Semplificazione.conX[e.ToString()] = nX * n;
                 return m_Semplificazione;
             }
-            if (d is ExprParser.FunzioneEspressioneContext Funzione)
+            /*if (d is ExprParser.FunzioneEspressioneContext Funzione)
             {
-                m_Semplificazione = semplifica(Funzione.expr());
-                m_Semplificazione.Funzioni = Funzione.func().GetText();
                 return m_Semplificazione;
-            }
+            }*/
             return m_Semplificazione;
         }
     }
@@ -268,7 +258,6 @@ namespace ProgrammaDerivate
     {
         public double Costanti;
         public Dictionary<string, double> conX = new Dictionary<string, double>();
-        public string Funzioni;
     }
 
 }

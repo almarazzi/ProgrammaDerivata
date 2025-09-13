@@ -177,6 +177,17 @@ public partial class ExprBaseVisitor<Result> : AbstractParseTreeVisitor<Result>,
 	/// <return>The visitor result.</return>
 	public virtual Result VisitFunzioneEspressione([NotNull] ExprParser.FunzioneEspressioneContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>FuncNeg</c>
+	/// labeled alternative in <see cref="ExprParser.expr"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitFuncNeg([NotNull] ExprParser.FuncNegContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>NumeroEspressione</c>
 	/// labeled alternative in <see cref="ExprParser.expr"/>.
 	/// <para>
