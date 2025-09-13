@@ -214,7 +214,7 @@ namespace ProgrammaDerivate
                 var s = semplifica(M.expr(0));
                 var de = semplifica(M.expr(1));
                 double n;
-                if ((s.conX.Count != 0 || de.conX.Count != 0) && (s.Costanti != 0 || de.Costanti != 0))
+                if (s.conX.Count != 0 || de.conX.Count != 0)
                 {
                     n = (((s.Costanti != 0) ? s.Costanti : 1) * ((de.Costanti != 0) ? de.Costanti : 1));
                 }
@@ -233,7 +233,7 @@ namespace ProgrammaDerivate
                 var s = semplifica(D.expr(0));
                 var de = semplifica(D.expr(1));
                 double n;
-                if ((s.conX.Count != 0 || de.conX.Count != 0) && (s.Costanti != 0 || de.Costanti != 0))
+                if (s.conX.Count != 0 || de.conX.Count != 0)
                 {
                     n = ((s.Costanti != 0) ? s.Costanti : 1) * (1 / ((de.Costanti != 0) ? de.Costanti : 1));
                 }

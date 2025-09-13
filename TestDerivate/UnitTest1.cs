@@ -120,7 +120,7 @@ namespace TestDerivate
         [Fact]
         public void TestSemplificazione()
         {
-            var t = Espressione("y=(((3*x)/(2*x))*(5*x)-(2*10))");
+            var t = Espressione("s=((3*x^1)/(2*x^1)*(5*x^1)-(2*10))");
             var g = m_ascolto.Visit(t);
             var s = "7,5*x^3-20";
             Assert.Equal(g, s);
