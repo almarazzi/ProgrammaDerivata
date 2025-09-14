@@ -54,6 +54,10 @@ Il flusso con ANTLR4 funziona così:
 4. Infine, il visitor restituisce una nuova stringa che rappresenta la derivata della funzione iniziale.  
 
 ---
+## Diagramma del flusso
+(Digramma del flusso) 
+
+---
 ## Tecnologie utilizzate
 
 - **C# (.NET)** → linguaggio di programmazione principale.  
