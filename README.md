@@ -55,7 +55,8 @@ Il flusso con ANTLR4 funziona così:
 
 ---
 ## Diagramma del flusso
-(Digramma del flusso.png) 
+
+![Diagramma del flusso](Diagramma%20del%20flusso.png) 
 
 ---
 ## Tecnologie utilizzate
